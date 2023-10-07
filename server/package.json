@@ -1,0 +1,19 @@
+{
+  "name": "accountahub-server",
+  "version": "1.0.0",
+  "description": "AccountaHub Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.8",
+    "cors": "^2.8.5",
+    "body-parser": "^1.19.1",
+    "dotenv": "^10.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
