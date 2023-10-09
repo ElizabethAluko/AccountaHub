@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const apiRoutes = require('./routes/api'); // Import the sample API route
+const tasksRoutes = require('./routes/tasks'); // include tasks routes
 
 dotenv.config();
 
@@ -16,6 +17,10 @@ app.use(bodyParser.json());
 
 // Use the sample API route
 app.use('/api', apiRoutes);
+
+// Use the tasks routes
+app.use('/api/tasks', tasksRoutes); // Mount tasks routes at /api/tasks
+
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
