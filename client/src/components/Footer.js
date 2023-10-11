@@ -2,9 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Navigation() {
+function Footer() {
   return (
-    <nav>
+    <footer Style="background-color">
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -12,9 +12,15 @@ function Navigation() {
         <li>
           <Link to="/dashboard">Dashboard</Link>
         </li>
+	<li>
+	  <Link to="/login">Login</Link>
+	</li>
+	<li>
+	  <Link to="/About">About</Link>
+	</li>
       </ul>
-    </nav>
+    </footer>
   );
 }
 
-export default Navigation;
+export default Footer;
