@@ -3,15 +3,16 @@ import React from 'react';
 
 function About() {
   return (
-    <div Style="background-color: pink">
-      <h2>About Us</h2>
-      <h2>Vision Statement</h2>
-	  <p>Empowering a generation of leaders by fostering a world where mentorship, guidance, and shared accountability are the cornerstones of personal and professional growth. Together, we inspire and shape brighter futures.</p>
+    <div className="text-center">
+      <h1 className="text-3xl font-bold">About Us</h1>
+       <hr /><br />
+      <h2 className="text-2xl">Vision Statement</h2>
+	  <p className="text-lg">Empowering a generation of leaders by fostering a world where mentorship, guidance, and shared accountability are the cornerstones of personal and professional growth. Together, we inspire and shape brighter futures.</p>
 
-      <h2>Mission Statement</h2>
+      <h2 className="text-2xl">Mission Statement</h2>
 	  <p>Our mission is to create a dynamic platform where experienced mentors, eager mentees, and individuals committed to personal growth converge. We facilitate meaningful connections, provide guidance, and cultivate a culture of mutual support. Through mentorship, goal-sharing, and unwavering encouragement, we aim to unlock the full potential of every member of our community.</p>
 
-      <h2>Core Values</h2>
+      <h2 className="text-2xl font-bold">Core Values</h2>
 	  <h3>Empowerment</h3>
 	  <p>We believe in the transformative power of mentorship and self-accountability to empower individuals to achieve their dreams.</p>
 

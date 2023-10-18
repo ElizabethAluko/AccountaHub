@@ -1,52 +1,75 @@
-// client/src/components/Login.js
 import React, { useState } from 'react';
-import { authenticate } from '../auth';
+import { useAuth } from './useAuth';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  const [username, setUsername] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
-
+  const auth = useAuth();
+  
+  const handleLogin = async () => {
     try {
-      const user = await authenticate(username, password);
-      // Handle successful authentication (e.g., set user context or redirect)
-      console.log('Authenticated user:', user);
-    } catch (err) {
-      setError(err.message);
+      const userCredentials = {
+        email,
+        password,
+      };
+
+      // Send a POST request to your server for authentication
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userCredentials),
+      });
+      
+      if (response.status === 200) {
+      // Authentication successful
+        const userData = await response.json();
+        auth.login(userData); // login function in the useAuth file
+	navigate('/dashboard');
+      } else {
+        // Authentication failed
+        console.error('Authentication failed');
+        // You can display an error message or handle it as needed
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle any network or other errors here
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+      <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 mb-2 border rounded-md"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full p-2 mb-4 border rounded-md"
+      />
+      <div className="flex justify-between items-center">
+        <a href="#" className="text-blue-500 text-sm">Forgot Password</a>
+        <a href="#" className="text-blue-500 text-sm">Terms & Conditions</a>
+      </div>
+      <button
+        onClick={handleLogin}
+        className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+      >
+        Login
+      </button>
     </div>
   );
-}
+};
 
 export default Login;
