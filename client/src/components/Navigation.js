@@ -48,6 +48,21 @@ function Navigation({ openModal, user, handleLogout }) {
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="text-white hover:underline">Services</Link>
           <a href="#" className="text-white hover:underline">About</a>
+
+	  {user ? (
+        <div className="user-profile">
+          <img src={user.avatar} alt="User Avatar" className="avatar" />
+          <span className="username">{user.username}</span>
+          <button onClick={handleLogout} className="sign-out-button">
+            Logout
+          </button>
+        </div>
+      ) : (
+        <button onClick={openModal} className="text-white hover:underline">
+          Login
+        </button>
+      )}
+
           <button onClick={openModal} className="text-white hover:underline">Login</button>
         </div>
       </div>
@@ -60,6 +75,21 @@ function Navigation({ openModal, user, handleLogout }) {
 	  <Link to="/dashboard" className="block text-white py-2">Mutual Support</Link>
 	  <Link to="/dashboard" className="block text-white py-2">Self Help</Link>
 	  <Link to="/About" className="block text-white py-2">About Us</Link>
+
+	  {user ? (
+        <div className="user-profile">
+          <img src={user.avatar} alt="User Avatar" className="avatar" />
+          <span className="username">{user.username}</span>
+          <button onClick={handleLogout} className="sign-out-button">
+            Logout
+          </button>
+        </div>
+      ) : (
+        <button onClick={openModal} className="text-white hover:underline">
+          Login
+        </button>
+      )}
+	
 	  <Link onClick={openModal} className="block text-white py-2">Login</Link>
         </div>
       )}
