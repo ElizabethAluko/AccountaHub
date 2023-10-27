@@ -17,7 +17,7 @@ const Login = () => {
       };
 
       // Send a POST request to your server for authentication
-      const response = await fetch('/login', {
+      const response = await fetch('http://localhost:5000/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,16 +28,19 @@ const Login = () => {
       if (response.status === 200) {
       // Authentication successful
         const userData = await response.json();
+	alert('User login successfully');
         auth.login(userData); // login function in the useAuth file
+	alert('Welcome user');
 	navigate('/dashboard');
       } else {
         // Authentication failed
+	alert('Login Failed');
         console.error('Authentication failed');
-        // You can display an error message or handle it as needed
       }
+     // Handle any network or other errors here
     } catch (error) {
-      console.error('Error during login:', error);
-      // Handle any network or other errors here
+        alert('Error during login');
+        console.error('Error during login:', error);
     }
   };
 

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from './useAuth';
-import { withRouter } from 'react-router-dom';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -10,9 +8,8 @@ const Signup = () => {
   const [role, setRole] = useState('');
   const [jobOrCourseTitle, setjobOrCourseTitle] = useState('');
 
-  const auth = useAuth();
-
-const handleSignup = async () => {
+const handleSignup = async (event) => {
+  event.preventDefault();
   // Implement your signup logic here
   const newUser = {
     firstName,
@@ -27,6 +24,7 @@ const handleSignup = async () => {
   if (!newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password || !newUser.role || !newUser.jobOrCourseTitle) {
     // Handle incomplete user data, display an error message, or prevent submission
     console.log('Incomplete user data');
+    alert('Please, Fill all Fields');
     return;
   }
 
@@ -34,7 +32,7 @@ const handleSignup = async () => {
 
   // Send the user data to the server for registration
   try {
-    const response = await fetch('/register', {
+    const response = await fetch('http://localhost:5000/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,16 +42,18 @@ const handleSignup = async () => {
 
     if (response.ok) {
       // Registration successful - you can navigate the user to a login page or display a success message
-      console.log('Registration successful');
+      console.log('Registration successful. Please login.');
+      alert('Registration Successful, Please Login');
       // props.history.push('/login')
     } else {
       // Handle registration error and display an error message
       const data = await response.json();
       console.log('Registration error:', data.error);
+      alert('Registration error:');
     }
   } catch (error) {
     // Handle network errors or other issues
-    console.error('Registration failed:', error);
+    alert('Registration failed:', error);
   }
 };
 

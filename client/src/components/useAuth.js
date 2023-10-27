@@ -1,3 +1,5 @@
+// In your useAuth.js or wherever you define your context:
+
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
@@ -9,17 +11,19 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const login = (email, password) => {
-    // Simulate authentication logic here (replace with your actual authentication logic)
-    if (email === 'exampleUser' && password === 'examplePassword') {
-      setUser({ email });
-    } else {
-      throw new Error('Invalid login credentials');
-    }
+  const login = (userData) => {
+    // Assuming userData contains user information and/or tokens from the server
+    setUser(userData);
+
+    // You can also store the token in local storage or cookies for persistent authentication
+    localStorage.setItem('userToken', userData.token);
   };
 
   const logout = () => {
     setUser(null);
+
+    // Clear any stored tokens on logout
+    localStorage.removeItem('userToken');
   };
 
   const value = {

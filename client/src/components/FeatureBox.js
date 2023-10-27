@@ -11,16 +11,16 @@ const FeatureBox = ({ image, title, description, linkHref, swapPositionsOnLargeS
         />
       </div>
       <div className={`p-8 ${swapPositionsOnLargeScreen ? '' : 'md:order-first'}`}>
-        <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+        <div className="uppercase tracking-wide text-lg text-indigo-500 font-semibold">
           {title}
         </div>
+	<p className="mt-2 text-slate-500">{description}</p>
         <a
           href={linkHref}
-          className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
+          className="block mt-1 text-sm leading-tight font-small text-black hover:underline"
         >
           Learn More
         </a>
-        <p className="mt-2 text-slate-500">{description}</p>
       </div>
     </div>
   );

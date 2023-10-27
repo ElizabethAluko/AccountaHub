@@ -16,11 +16,11 @@ function Navigation({ openModal, user, handleLogout }) {
         <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!isMenuOpen)}
-            className="text-white focus:outline-none"
+            className="text-red focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-6 w-6 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -48,9 +48,19 @@ function Navigation({ openModal, user, handleLogout }) {
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="text-white hover:underline">Services</Link>
           <a href="#" className="text-white hover:underline">About</a>
-          <button onClick={openModal} className="text-white hover:underline">Login</button>
+
+	  {user ? (
+		  <span className="user-profile">
+              <img src={user.avatar} alt="User Avatar" className="avatar" />
+              <span className="username">{user.username}</span>
+              <button onClick={handleLogout} className="sign-out-button">
+                Sign Out
+              </button>
+	</span>
+          ) : (
+              <button onClick={openModal} className="text-white hover:underline">Login</button>
+         )}
         </div>
-      </div>
 
       {/* Responsive Mobile Menu (visible on small screens) */}
       {isMenuOpen && (
@@ -60,9 +70,21 @@ function Navigation({ openModal, user, handleLogout }) {
 	  <Link to="/dashboard" className="block text-white py-2">Mutual Support</Link>
 	  <Link to="/dashboard" className="block text-white py-2">Self Help</Link>
 	  <Link to="/About" className="block text-white py-2">About Us</Link>
-	  <Link onClick={openModal} className="block text-white py-2">Login</Link>
+
+	{user ? (
+	<span className="user-profile">
+          <img src={user.avatar} alt="User Avatar" className="avatar" />
+          <span className="username">{user.username}</span>
+          <button onClick={handleLogout} className="sign-out-button">
+            Sign Out
+          </button>
+	</span>
+      ) : (
+        <Link onClick={openModal} className="block text-white py-2">Login</Link>
+      )}
         </div>
       )}
+     </div>
     </nav>
   );
 }
