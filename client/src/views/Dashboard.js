@@ -10,13 +10,13 @@ import Login from '../components/Login'
 import Signup from '../components/Signup'
 import Team from '../components/Team'
 import Sidebar from '../components/Sidebar'
+import AddTask from '../components/AddTask'
+import TaskList from '../components/TaskList'
+import { useAuth } from '../components/useAuth';
 
 
-function Home() {
-  const user = {
-    username: 'JohnDoe',
-    avatar: 'images/lizy.jpg',
-  };
+function Dashboard() {
+  const { user }= useAuth();
 
   // Define a function to handle user logout
   const handleLogout = () => {
@@ -24,23 +24,23 @@ function Home() {
     console.log('User logged out');
   };
 
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  // const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const openLoginModal = () => {
-    setLoginModalOpen(true);
-  };
+  // const openLoginModal = () => {
+    // setLoginModalOpen(true);
+  // };
 
-  const closeLoginModal = () => {
-    setLoginModalOpen(false);
-  };
+  // const closeLoginModal = () => {
+    // setLoginModalOpen(false);
+  // };
 
-  const openSignupModal = () => {
-    setSignupModalOpen(true);
+  const openModal = () => {
+    setModalOpen(true);
   };
 
   const closeSignupModal = () => {
-    setSignupModalOpen(false);
+    setModalOpen(false);
   };
   
   return (
@@ -48,7 +48,7 @@ function Home() {
       {/* Sidebar */}
       <div className="flex">
         {/* Sidebar component with user and logout handling */}
-        <Sidebar user={user} handleLogout={handleLogout} />
+        <Sidebar  user={user} handleLogout={handleLogout}>
 
         {/* Main content */}
         <div className="flex-grow p-4">
@@ -59,7 +59,7 @@ function Home() {
             <Route path="/chat">Chat Page</Route>
             <Route path="/settings">Settings Page</Route>
 	</Routes>
-        </div>
+        </div></Sidebar>
       </div>
 
 
@@ -76,24 +76,20 @@ function Home() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-4xl font-bold mb-4">AccountaHub</h1>
           <p className="text-lg">Empower! Inspire! Succeed!</p>
-
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openSignupModal}>
-            Start for Free
-          </button>
         </div>
       </div>
 
       {/* Conditionally render the login form */}
-	{isLoginModalOpen && (
-          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
+	{isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
 	  {/* LoginForm component here */}
 	    <Login />
 	    </Modal>
 	 )}
 	
 	{/* Conditionally render the Signup form */}
-	{isSignupModalOpen && (
-	  <Modal isOpen={isSignupModalOpen} onClose={() => setSignupModalOpen(false)}>
+	{isModalOpen && (
+	  <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
            {/* SignupForm component here */}
            <Signup />
           </Modal>
@@ -105,10 +101,16 @@ function Home() {
 
 <br /><br /><br />
 
-<p>We are here to help you stay accountable and achieve your goals.</p>
+<p>Welcome,. We are here to help you stay accountable and achieve your goals.</p>
 
 <br /><br /><br />
-
+     <TaskList/>
+      {/* Conditionally render the AddTask form */}
+      {isModalOpen && (                                         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+           {/* SignupForm component here */}
+           <AddTask />
+	</Modal>
+      )}
 <br /><br /><br />
 
       <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
@@ -158,4 +160,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Dashboard;

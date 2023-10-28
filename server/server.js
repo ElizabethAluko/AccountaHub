@@ -18,6 +18,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// app.use(express.urlencoded({ extended: true }));
+
 // Use the routes
 app.use('/user', userRoutes);
 // app.use('/mentorship', mentorshipRoutes);

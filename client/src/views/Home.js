@@ -1,6 +1,5 @@
 // client/src/views/Home.js
 import React, { useState } from 'react';
-import tree from './images/tree.jpg';
 import video from './bgdVideo.mp4';
 import Modal from '../components/Modal';
 import FeatureBox from '../components/FeatureBox'
@@ -11,28 +10,18 @@ import Team from '../components/Team'
 
 
 function Home() {
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const openLoginModal = () => {
-    setLoginModalOpen(true);
+  const openModal = () => {
+    setModalOpen(true);
   };
 
-  const closeLoginModal = () => {
-    setLoginModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
   };
-
-  const openSignupModal = () => {
-    setSignupModalOpen(true);
-  };
-
-  const closeSignupModal = () => {
-    setSignupModalOpen(false);
-  };
-  
+ 
   return (
     <div>
-
       {/* Background Video Section */}
       <div className="relative h-full w-full">
         <video
@@ -42,87 +31,83 @@ function Home() {
           muted
         >
           <source src={video} type="video/mp4" />
-        </video>
+	</video>
+	<div className="absolute top-0 left-0 h-full w-full bg-black opacity-70"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-          <h1 className="text-4xl font-bold mb-4">AccountaHub</h1>
-          <p className="text-lg">Empower! Inspire! Succeed!</p>
-
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openSignupModal}>
+        <h1 className="text-4xl text-white font-bold mb-4">AccountaHub</h1>
+        <p className="text-md text-yellow-400">Empower! Inspire! Succeed!</p>
+          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openModal}>
             Start for Free
           </button>
         </div>
       </div>
 
       {/* Conditionally render the login form */}
-	{isLoginModalOpen && (
-          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
+	{isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
 	  {/* LoginForm component here */}
-	    <Login />
+	    <Login onSuccess={closeModal} />
 	    </Modal>
 	 )}
 	
 	{/* Conditionally render the Signup form */}
-	{isSignupModalOpen && (
-	  <Modal isOpen={isSignupModalOpen} onClose={() => setSignupModalOpen(false)}>
+	{isModalOpen && (
+	  <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
            {/* SignupForm component here */}
-           <Signup />
+           <Signup onSuccess={closeModal} />
           </Modal>
 	)}
 
-      <div Style="background-color: grey"><h1>AccountaHub</h1>
-        <p>Empower. Inspire. Succeed. Join us for mentorship, goal-setting, and community support, where every journey leads
- to greatness.</p></div>
-
-<br /><br /><br />
-
-<p>We are here to help you stay accountable and achieve your goals.</p>
-
-<br /><br /><br />
-
-<br /><br /><br />
-
-      <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-  <div class="md:flex">
-    <div class="md:shrink-0">
-      <img class="h-48 w-full object-cover md:h-full md:w-48" src={tree} alt="Modern building architecture" />
+	<div className="bg-gradient-to-r from-blue-400 to-purple-500 py-8 text-white text-center">
+      <h1 className="text-4xl font-bold mb-4">
+        ThriveTogether Hub: <span className="text-yellow-400">Mentor, Be Mentored,</span>
+      </h1>
+      <p className="text-2xl">Support, Empower</p>
     </div>
-    <div class="p-8">
-      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
-      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible accommodation for your team</a>
-      <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
-    </div>
-  </div>
-</div>
+
+	<br />
+        <p>Join us for mentorship, goal-setting, and community support, where every journey leads
+ to greatness.</p>
+
+<br />
+
+<p> Stay accountable and achieve your goals.</p>
+
 <br /><br /><br />
 
     <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 1"
-        description="Your custom description for box 1."
+        image="/images/success.png"
+        title="Mentorship"
+        description="Remember those who guided you on your path? Now is your chance to pay it forward. By becoming a mentor, you continue a chain of support that uplifts individuals and communities."
         linkHref="#" // Link 1
         swapPositionsOnLargeScreen={true}
       /><br /><br /><br />
-      <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 2"
-        description="Your custom description for box 2."
+    <FeatureBox
+        image="/images/men.jpg"
+        title="Mutual Suport"
+        description="You're never alone on this journey. Connect with like-minded individuals who understand your struggles and aspirations. Together, we foster a community built on trust and support."
         linkHref="#" // Link 2
         swapPositionsOnLargeScreen={false}
       /><br /><br /><br />
-      <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 3"
-        description="Your custom description for box 3."
+    <FeatureBox
+        image="/images/office.png"
+        title="Self Help"
+        description="Harness the power within you. We equip you with the knowledge and tools needed for self-improvement, so you can take charge of your life and thrive."
         linkHref="#" // Link 3
         swapPositionsOnLargeScreen={true}
       /><br /><br /><br />
 
-      <FeatureBox                                                     image="/images/flower.png"                                      title="Company retreats 3"                                    description="Do not go alone."
+      <FeatureBox
+	  image="/images/flower.png"
+	  title="Company retreats 3"
+	  description="Do not go alone."
 	  linkHref="#"
-	  swapPositionsOnLargeScreen={true}                           /><br /><br /><br />
+	  swapPositionsOnLargeScreen={true}
+      />
+	  <br /><br /><br />
 
-      <Team /> <br /><br />
-      <Quotes /><br /><br />
+      <Quotes /> <br /><br />
+      <Team /><br /><br />
 	
     </div>
   );

@@ -1,7 +1,7 @@
 // client/src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './components/useAuth';
+import { AuthProvider, useAuth } from './components/useAuth';
 import Modal from './components/Modal';
 import About from './views/About';
 import Navigation from './components/Navigation';
@@ -10,27 +10,18 @@ import Dashboard from './views/Dashboard';
 import Quotes from './components/Quotes';
 import Login from './components/Login';
 import Footer from './components/Footer';
-import Team from './components/Team';
+// import Team from './components/Team';
 
 function App() {
 
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const openLoginModal = () => {
-    setLoginModalOpen(true);
+  const openModal = () => {
+    setModalOpen(true);
   };
 
-  const closeLoginModal = () => {
-    setLoginModalOpen(false);
-  };
-
-  const openSignupModal = () => {
-    setSignupModalOpen(true);
-  };
-
-  const closeSignupModal = () => {
-    setSignupModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
 
@@ -38,9 +29,9 @@ function App() {
    <AuthProvider>
     <Router>
       <div className="App">
-        <Navigation openLoginModal={openLoginModal}/>
-	<Modal isOpen={isLoginModalOpen} onClose={closeLoginModal}>
-        <Login />
+        <Navigation openModal={openModal} />
+	<Modal isOpen={isModalOpen} onClose={closeModal}>
+        <Login onSuccess={closeModal} />
       </Modal>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,12 +1,13 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Function to save a new user during registration
-exports.registerUser = async (req, res) => {
+exports.registerUser = async (req, res, next) => {
   try {
-    const { fistname, lastname, email, password, role, JobOrCourseTitle/* other user properties */ } = req.body;
+    const { firstName, lastName, email, password, role, jobOrCourseTitle} = req.body;
 
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
@@ -20,8 +21,8 @@ exports.registerUser = async (req, res) => {
 
     // Create a new user
     const newUser = new User({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
       role,
@@ -34,6 +35,7 @@ exports.registerUser = async (req, res) => {
     // You may want to generate and send a JWT token for user authentication
 
     res.status(201).json(savedUser);
+    next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -47,7 +49,7 @@ exports.login = async (req, res) => {
 
   try {
     // Find the user with the provided email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -63,13 +65,12 @@ exports.login = async (req, res) => {
     // If email and password are valid, generate a JWT token
     const usertoken = {
       _id: user._id,
-      firstName: user.firstname,
       role: user.role,
     };
 
-    const token = jwt.sign(usertoken, JWT_SECRET, {expiresIn: '72h',});
+   const token = jwt.sign(usertoken, process.env.JWT_SECRET, {expiresIn: '72h',});
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, user: user.firstName });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

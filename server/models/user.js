@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Role: [String],
+  role: [String],
   jobOrCourseTitle: String,
   academicLevel: String,
   ageRange: String,
