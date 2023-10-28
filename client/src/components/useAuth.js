@@ -1,4 +1,4 @@
-// In your useAuth.js or wherever you define your context:
+// Store and Access data
 
 import React, { createContext, useContext, useState } from 'react';
 

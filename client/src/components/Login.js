@@ -2,36 +2,34 @@ import React, { useState } from 'react';
 import { useAuth } from './useAuth';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
   const auth = useAuth();
   
   const handleLogin = async () => {
     try {
-      const userCredentials = {
-        email,
-        password,
-      };
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('password', password);
 
       // Send a POST request to your server for authentication
       const response = await fetch('http://localhost:5000/user/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        body: formData,
+	headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(userCredentials),
       });
       
       if (response.status === 200) {
       // Authentication successful
         const userData = await response.json();
-	alert('User login successfully');
         auth.login(userData); // login function in the useAuth file
-	alert('Welcome user');
+	alert(`Login Successfull, ${userData.user}!`);
 	navigate('/dashboard');
+	onSuccess();
       } else {
         // Authentication failed
 	alert('Login Failed');

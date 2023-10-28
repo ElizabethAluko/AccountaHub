@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Signup = () => {
+const Signup = ({ onSuccess }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -44,12 +44,13 @@ const handleSignup = async (event) => {
       // Registration successful - you can navigate the user to a login page or display a success message
       console.log('Registration successful. Please login.');
       alert('Registration Successful, Please Login');
+      onSuccess();
       // props.history.push('/login')
     } else {
       // Handle registration error and display an error message
       const data = await response.json();
       console.log('Registration error:', data.error);
-      alert('Registration error:');
+      alert('User already Exist');
     }
   } catch (error) {
     // Handle network errors or other issues

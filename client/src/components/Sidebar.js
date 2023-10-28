@@ -30,12 +30,13 @@ const Sidebar = ({ user, handleLogout}) => {
           </li>
         </ul>
         <hr className="my-4" />
+      if (user.avatar) {
         <div className="flex items-center">
           <img src={user.avatar} alt="User Avatar" className="w-10 h-10 rounded-full mr-2" />
           <div>
-            <div className="text-sm">{user.username}</div>
+            <div className="text-sm">{user.firstName}</div>
           </div>
-        </div>
+        </div>}
         <div className="mt-4">
           <button onClick={handleLogout} className="w-full py-2 bg-red-500 hover:bg-red-600 rounded text-white">
             Logout
