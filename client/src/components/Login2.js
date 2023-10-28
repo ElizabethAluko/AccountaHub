@@ -10,14 +10,16 @@ const Login = ({ onSuccess }) => {
   
   const handleLogin = async () => {
     try {
-      const logindata = {email, password,};
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('password', password);
 
       // Send a POST request to your server for authentication
       const response = await fetch('http://localhost:5000/user/login', {
         method: 'POST',
-        body: JSON.stringify(logindata),
+        body: formData,
 	headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       
