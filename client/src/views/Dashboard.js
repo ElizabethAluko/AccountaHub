@@ -4,15 +4,16 @@ import React, { useState } from 'react';
 import tree from './images/tree.jpg';
 import video from './bgdVideo.mp4';
 import Modal from '../components/Modal';
-import FeatureBox from '../components/FeatureBox'
-import Quotes from '../components/Quotes'
-import Login from '../components/Login'
-import Signup from '../components/Signup'
-import Team from '../components/Team'
-import Sidebar from '../components/Sidebar'
-import AddTask from '../components/AddTask'
-import TaskList from '../components/TaskList'
+import FeatureBox from '../components/FeatureBox';
+import Quotes from '../components/Quotes';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
+import Team from '../components/Team';
+import Sidebar from '../components/Sidebar';
+import AddTask from '../components/AddTask';
+import TaskList from '../components/TaskList';
 import { useAuth } from '../components/useAuth';
+import Navigation from '../components/Navigation';
 
 
 function Dashboard() {
@@ -24,27 +25,29 @@ function Dashboard() {
     console.log('User logged out');
   };
 
-  // const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // if (!user) {
+    // Redirect to the login page or handle user not being logged in.
+    // You can use the React Router `useNavigate` hook to navigate.
+  // }
 
-  // const openLoginModal = () => {
-    // setLoginModalOpen(true);
-  // };
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  const [isTaskModalOpen, setTaskModalOpen] = useState(false);
 
-  // const closeLoginModal = () => {
-    // setLoginModalOpen(false);
-  // };
+  const openLoginModal = () => {setLoginModalOpen(true);};
+  const closeLoginModal = () => {setLoginModalOpen(false);};
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeSignupModal = () => {
-    setModalOpen(false);
-  };
+  const openSignupModal = () => {setSignupModalOpen(true);};
+  const closeSignupModal = () => {setSignupModalOpen(false);};
+  
+  const openTaskModal = () => {setTaskModalOpen(true);};
+  const closeTaskModal = () => {setTaskModalOpen(false);};
   
   return (
     <div>
+      {/* Navigation Bar */}
+      <Navigation openLoginModal={openLoginModal} />
+
       {/* Sidebar */}
       <div className="flex">
         {/* Sidebar component with user and logout handling */}
@@ -80,16 +83,16 @@ function Dashboard() {
       </div>
 
       {/* Conditionally render the login form */}
-	{isModalOpen && (
-          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+	{isLoginModalOpen && (
+          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
 	  {/* LoginForm component here */}
 	    <Login />
 	    </Modal>
 	 )}
 	
 	{/* Conditionally render the Signup form */}
-	{isModalOpen && (
-	  <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+	{isSignupModalOpen && (
+	  <Modal isOpen={isSignupModalOpen} onClose={closeSignupModal}>
            {/* SignupForm component here */}
            <Signup />
           </Modal>
@@ -101,13 +104,13 @@ function Dashboard() {
 
 <br /><br /><br />
 
-<p>Welcome,. We are here to help you stay accountable and achieve your goals.</p>
+<p>Welcome, {user.user}. We are here to help you stay accountable and achieve your goals.</p>
 
 <br /><br /><br />
      <TaskList/>
       {/* Conditionally render the AddTask form */}
-      {isModalOpen && (                                         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-           {/* SignupForm component here */}
+      {isTaskModalOpen && (                                         <Modal isOpen={isTaskModalOpen} onClose={() => setTaskModalOpen(false)}>
+           {/* TaskForm component here */}
            <AddTask />
 	</Modal>
       )}

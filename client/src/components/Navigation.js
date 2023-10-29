@@ -1,9 +1,12 @@
 // client/src/components/Navigation.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from './useAuth';
 
-function Navigation({ openModal, user, handleLogout }) {
+function Navigation({ openLoginModal, handleLogout }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const { user = null, logout } = useAuth();
 
   return (
     <nav className="bg-blue-900 p-4">
@@ -49,21 +52,19 @@ function Navigation({ openModal, user, handleLogout }) {
           <Link to="/" className="text-white hover:underline">Services</Link>
           <a href="#" className="text-white hover:underline">About</a>
 
-	  {user ? (
-        <div className="user-profile">
-          <img src={user.avatar} alt="User Avatar" className="avatar" />
-          <span className="username">{user.username}</span>
-          <button onClick={handleLogout} className="sign-out-button">
+	  {location.pathname === '/dashboard' && user ? (
+            <div className="user-profile">
+            <img src={user.avatar} alt="User Avatar" className="avatar" />
+            <button onClick={logout} className="text-white hover:underline">
             Logout
-          </button>
+            </button>
         </div>
       ) : (
-        <button onClick={openModal} className="text-white hover:underline">
+        <button onClick={openLoginModal} className="text-white hover:underline">
           Login
         </button>
       )}
 
-          <button onClick={openModal} className="text-white hover:underline">Login</button>
         </div>
       </div>
 
@@ -76,21 +77,21 @@ function Navigation({ openModal, user, handleLogout }) {
 	  <Link to="/dashboard" className="block text-white py-2">Self Help</Link>
 	  <Link to="/About" className="block text-white py-2">About Us</Link>
 
-	  {user ? (
-        <div className="user-profile">
-          <img src={user.avatar} alt="User Avatar" className="avatar" />
-          <span className="username">{user.username}</span>
-          <button onClick={handleLogout} className="sign-out-button">
+	  {location.pathname === '/dashboard' && user ? (
+	    <div>
+	    <hr />
+            <img src={user.avatar} alt="User Avatar" className="avatar" />
+            <p className="block text-white py-2">{user.user}</p>
+            <button onClick={logout} className="text-white hover:underline">
             Logout
-          </button>
-        </div>
+            </button>
+	    </div>
       ) : (
-        <button onClick={openModal} className="text-white hover:underline">
+        <button onClick={openLoginModal} className="text-white hover:underline">
           Login
         </button>
       )}
 	
-	  <Link onClick={openModal} className="block text-white py-2">Login</Link>
         </div>
       )}
     </nav>

@@ -2,26 +2,30 @@
 import React, { useState } from 'react';
 import video from './bgdVideo.mp4';
 import Modal from '../components/Modal';
-import FeatureBox from '../components/FeatureBox'
-import Quotes from '../components/Quotes'
-import Login from '../components/Login'
-import Signup from '../components/Signup'
-import Team from '../components/Team'
+import FeatureBox from '../components/FeatureBox';
+import Quotes from '../components/Quotes';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
+import Team from '../components/Team';
+import Navigation from '../components/Navigation';
 
 
 function Home() {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
+  const openLoginModal = () => {setLoginModalOpen(true);};
+  const closeLoginModal = () => {setLoginModalOpen(false);};
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const openSignupModal = () => {setSignupModalOpen(true);};
+  const closeSignupModal = () => {setSignupModalOpen(false);};
  
+
   return (
     <div>
+      {/* Navigation Bar */}
+      <Navigation openLoginModal={openLoginModal} />
+
       {/* Background Video Section */}
       <div className="relative h-full w-full">
         <video
@@ -36,25 +40,25 @@ function Home() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         <h1 className="text-4xl text-white font-bold mb-4">AccountaHub</h1>
         <p className="text-md text-yellow-400">Empower! Inspire! Succeed!</p>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openModal}>
+          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openSignupModal}>
             Start for Free
           </button>
         </div>
       </div>
 
       {/* Conditionally render the login form */}
-	{isModalOpen && (
-          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+	{isLoginModalOpen && (
+          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
 	  {/* LoginForm component here */}
-	    <Login onSuccess={closeModal} />
+	    <Login onSuccess={closeLoginModal} />
 	    </Modal>
 	 )}
 	
 	{/* Conditionally render the Signup form */}
-	{isModalOpen && (
-	  <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+	{isSignupModalOpen && (
+	  <Modal isOpen={isSignupModalOpen} onClose={() => setSignupModalOpen(false)}>
            {/* SignupForm component here */}
-           <Signup onSuccess={closeModal} />
+           <Signup onSuccess={closeSignupModal} />
           </Modal>
 	)}
 

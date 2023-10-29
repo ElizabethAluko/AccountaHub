@@ -1,6 +1,6 @@
 // Store and Access data
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
@@ -16,15 +16,27 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
 
     // You can also store the token in local storage or cookies for persistent authentication
-    localStorage.setItem('userToken', userData.token);
+    localStorage.setItem('userData', userData);
   };
 
-  const logout = () => {
-    setUser(null);
+   const logout = () => {
+     setUser(null);
 
     // Clear any stored tokens on logout
-    localStorage.removeItem('userToken');
+     localStorage.removeItem('userData');
   };
+
+  // Function to initialize user data from Local Storage on app load
+  const initializeAuth = () => {
+    const savedUserData = localStorage.getItem('userData');
+    if (savedUserData) {
+          setUser(savedUserData);
+  }
+};
+  // Call the initialization function when your app loads
+   useEffect(() => {
+     initializeAuth();
+   }, []);
 
   const value = {
     user,
