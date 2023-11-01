@@ -12,25 +12,27 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    // Assuming userData contains user information and/or tokens from the server
+    // const userDataJ = JSON.parse(userData);
     setUser(userData);
 
-    // You can also store the token in local storage or cookies for persistent authentication
-    localStorage.setItem('userData', userData);
-  };
+   localStorage.setItem('userData', userData);
+    };
 
-   const logout = () => {
-     setUser(null);
+  const logout = () => {
+    setUser(null);
+    alert('Logout Successful!');
 
     // Clear any stored tokens on logout
-     localStorage.removeItem('userData');
+    localStorage.removeItem('userData');
   };
 
   // Function to initialize user data from Local Storage on app load
   const initializeAuth = () => {
     const savedUserData = localStorage.getItem('userData');
     if (savedUserData) {
-          setUser(savedUserData);
+      // const user = JSON.parse(savedUserData);
+      setUser(savedUserData);
+      // setUser(user);
   }
 };
   // Call the initialization function when your app loads

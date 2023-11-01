@@ -1,6 +1,6 @@
 // client/src/views/Home.js
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import tree from './images/tree.jpg';
 import video from './bgdVideo.mp4';
 import Modal from '../components/Modal';
@@ -17,22 +17,21 @@ import Navigation from '../components/Navigation';
 
 
 function Dashboard() {
-  const { user }= useAuth();
+  const { user, logout}= useAuth();
+  const navigate = useNavigate();
 
-  // Define a function to handle user logout
-  const handleLogout = () => {
-    // Implement your logout logic here
-    console.log('User logged out');
-  };
-
-  // if (!user) {
-    // Redirect to the login page or handle user not being logged in.
-    // You can use the React Router `useNavigate` hook to navigate.
-  // }
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
+
+  // useEffect(() => {  
+    if (!user) {
+      // Handle user not being logged in.
+      navigate('/');
+      return null;
+    }
+  // }, [user, navigate]);
 
   const openLoginModal = () => {setLoginModalOpen(true);};
   const closeLoginModal = () => {setLoginModalOpen(false);};
@@ -46,12 +45,12 @@ function Dashboard() {
   return (
     <div>
       {/* Navigation Bar */}
-      <Navigation openLoginModal={openLoginModal} />
+      <Navigation openModal={openLoginModal} />
 
       {/* Sidebar */}
       <div className="flex">
         {/* Sidebar component with user and logout handling */}
-        <Sidebar  user={user} handleLogout={handleLogout}>
+        <Sidebar  user={user.user}>
 
         {/* Main content */}
         <div className="flex-grow p-4">

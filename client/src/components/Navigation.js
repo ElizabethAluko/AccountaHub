@@ -4,15 +4,26 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from './useAuth';
 
 function Navigation({ openLoginModal, handleLogout }) {
-  const [isMenuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
   const { user = null, logout } = useAuth();
+
 
   return (
     <nav className="bg-blue-900 p-4">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <a href="#" className="text-white text-2xl font-bold">Logo</a>
+          <a href="/" className="text-white text-2xl font-bold">
+	    <img src="/logo192.png" alt="AccountaHub"
+	      className="w-6 h-6 md:w-10 md:h-10 lg:w-14 lg:h-14"
+	  />
+	  </a>
         </div>
 
         {/* Hamburger Menu Button (visible on small screens) */}
@@ -50,14 +61,23 @@ function Navigation({ openLoginModal, handleLogout }) {
         {/* Navigation Links (visible on larger screens) */}
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="text-white hover:underline">Services</Link>
-          <a href="#" className="text-white hover:underline">About</a>
+          <a href="/About" className="text-white hover:underline">About</a>
 
 	  {location.pathname === '/dashboard' && user ? (
-            <div className="user-profile">
-            <img src={user.avatar} alt="User Avatar" className="avatar" />
+            <div className="flex items-center space-x-4">
+            <img src='/avatar.png' alt="User Avatar" className="w-8 h-8" />
             <button onClick={logout} className="text-white hover:underline">
             Logout
             </button>
+          <button
+            type="button"
+            onClick={toggleDropdown}
+            className="flex items-center text-white focus:outline-none"
+          >
+          <div className="w-8 h-8 relative rounded-full bg-blue-500 flex items-center justify-center text-lg">
+            {user.user.charAt(0)}
+          </div>
+        </button>
         </div>
       ) : (
         <button onClick={openLoginModal} className="text-white hover:underline">
@@ -67,6 +87,35 @@ function Navigation({ openLoginModal, handleLogout }) {
 
         </div>
       </div>
+
+
+     {/* User Profile (visible on big screens) */}
+     {isDropdownOpen && (
+        <div className="origin-top-right absolute right-0 mt-2 top-12 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+          <div className="py-1">
+            <div className="px-4 py-2">
+              <img
+                src='/avatar.png'
+                alt={user.user}
+                className="w-9 h-9 rounded-full mx-auto"
+              />
+              <h3 className="text-center text-lg font-semibold text-gray-900">
+                {user.user}
+              </h3>
+              {/* Add more user information here */}
+            </div>
+            <div className="border-t border-gray-200">
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                className="group flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+	 </div>
+	</div>
+	)}
 
       {/* Responsive Mobile Menu (visible on small screens) */}
       {isMenuOpen && (
