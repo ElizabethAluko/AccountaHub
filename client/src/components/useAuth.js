@@ -1,4 +1,5 @@
 // Store and Access data
+import Cookies from 'js-cookie';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
@@ -15,35 +16,36 @@ export const AuthProvider = ({ children }) => {
     // const userDataJ = JSON.parse(userData);
     setUser(userData);
 
-   localStorage.setItem('userData', userData);
-    };
+   // localStorage.setItem('userData', userData);
+   Cookies.set('userData', userData);
+  };
 
   const logout = () => {
     setUser(null);
     alert('Logout Successful!');
 
     // Clear any stored tokens on logout
-    localStorage.removeItem('userData');
+    // localStorage.removeItem('userData');
+    Cookies.remove('userData');
   };
 
-  // Function to initialize user data from Local Storage on app load
   const initializeAuth = () => {
-    const savedUserData = localStorage.getItem('userData');
+   //  const savedUserData = localStorage.getItem('userData');
+    const savedUserData = Cookies.get('userData');
     if (savedUserData) {
-      // const user = JSON.parse(savedUserData);
       setUser(savedUserData);
-      // setUser(user);
-  }
-};
-  // Call the initialization function when your app loads
-   useEffect(() => {
-     initializeAuth();
-   }, []);
+    }
+  };
+
+  useEffect(() => {
+    initializeAuth();
+  }, []);
 
   const value = {
     user,
     login,
     logout,
+    initializeAuth,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

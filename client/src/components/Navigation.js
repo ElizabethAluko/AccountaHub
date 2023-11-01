@@ -1,9 +1,9 @@
 // client/src/components/Navigation.js
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from './useAuth';
+// import { useAuth } from './useAuth';
 
-function Navigation({ openLoginModal, handleLogout }) {
+function Navigation({ openLoginModal, user, logout }) {
   const location = useLocation();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -12,7 +12,7 @@ function Navigation({ openLoginModal, handleLogout }) {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const { user = null, logout } = useAuth();
+  // const { user = null, logout } = useAuth();
 
 
   return (

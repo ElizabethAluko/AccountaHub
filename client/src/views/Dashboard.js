@@ -17,7 +17,12 @@ import Navigation from '../components/Navigation';
 
 
 function Dashboard() {
-  const { user, logout}= useAuth();
+  const { user, logout }= useAuth();
+
+  // useEffect(() => {
+    // initializeAuth();
+  // }, []);
+
   const navigate = useNavigate();
 
 
@@ -45,12 +50,12 @@ function Dashboard() {
   return (
     <div>
       {/* Navigation Bar */}
-      <Navigation openModal={openLoginModal} />
+      <Navigation openLoginModal={openLoginModal} user={user} logout={logout} />
 
       {/* Sidebar */}
       <div className="flex">
         {/* Sidebar component with user and logout handling */}
-        <Sidebar  user={user.user}>
+        <Sidebar user={user.user}>
 
         {/* Main content */}
         <div className="flex-grow p-4">

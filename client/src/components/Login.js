@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useAuth } from './useAuth';
 import { useNavigate } from 'react-router-dom';
+import Modal from './Modal';
 
 const Login = ({ onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const openSuccessModal = () => {setSuccessModalOpen(true);};
+  const closeSuccessModal = () => {setSuccessModalOpen(false);};
+
   const navigate = useNavigate();
   const auth = useAuth();
   
@@ -25,6 +30,8 @@ const Login = ({ onSuccess }) => {
       // Authentication successful
         const userData = await response.json();
         auth.login(userData); // login function in the useAuth file
+
+	openSuccessModal();
 	alert(`Login Successfull, ${userData.user}!`);
 	navigate('/dashboard');
 	onSuccess();
@@ -42,6 +49,14 @@ const Login = ({ onSuccess }) => {
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+
+	{isSuccessModalOpen && (
+	  <Modal isOpen={isSuccessModalOpen} onClose={closeSuccessModal}>
+	    {/* Success component here */}
+	    <div>Login Successful!</div>
+	  </Modal>
+	  )}
+
       <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
       <input
         type="email"
