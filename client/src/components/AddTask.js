@@ -16,17 +16,17 @@ const AddTask = ({ userId }) => {
       status,
       dueDate,
     };
-      alert('I am called again');
+      alert(`I am called again ${userId}`);
 
   try {
-    const response = await fetch('https://localhost:5000/task/userId/newTask', {
+    const response = await fetch(`http://localhost:5000/task/${userId}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newTask),
     });
-
+    alert('I tried to fetch');
    if (response.ok) {
      // Task added successfully
      alert('Task added successfully');
@@ -38,12 +38,12 @@ const AddTask = ({ userId }) => {
    } else {
      // Handle errors, e.g., display an error message
        const data = await response.json();
-       alert('Task add error');
+       alert(`Task add error ${data.error}`);
     }
 
     } catch (error) {
     // Handle network errors or other issues
-    alert('Task add failed:', error);
+    alert(`Task add failed:, ${error}`);
     }
    };
 

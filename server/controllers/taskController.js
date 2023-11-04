@@ -1,17 +1,27 @@
 const User = require('../models/user');
+const Task = require('../models/task');
+
 
 // Create a new task for a specific user
 exports.createTaskForUser = async (req, res) => {
-  try {
     const userId = req.params.userId;
+    try {
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const newTask = req.body;
-    user.tasks.push(newTask);
+    const newTaskData = req.body;
+    const newTask = new Task(newTaskData);
+
+    // Save the new task
+    await newTask.save();
+
+    // Add the new task's ObjectId to the user's tasks array
+    user.tasks.push(newTask._id);
+
+    // Save the user with the updated tasks array
     await user.save();
 
     res.status(201).json(newTask);

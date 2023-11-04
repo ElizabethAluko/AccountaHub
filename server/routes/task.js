@@ -5,7 +5,7 @@ const { requireAuth } = require('../middlewares/authMiddleware');
 const taskController = require('../controllers/taskController');
 
 // Route to get all tasks
-router.post('/:userId/tasks', requireAuth, taskController.createTaskForUser);
+router.post('/:userId/tasks', taskController.createTaskForUser);
 
 // Route to create a new task
 router.get('/:userId/tasks', requireAuth, taskController.getTasksForUser);

@@ -108,7 +108,7 @@ function Dashboard() {
 <p>Welcome, {user.firstName}.Your id is {user._id} We are here to help you stay accountable and achieve your goals.</p>
 
 <br /><br /><br />
-     <TaskList />
+     <TaskList user={user}/>
 <br /><br /><br />
 
       <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">

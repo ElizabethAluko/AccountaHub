@@ -4,7 +4,7 @@ import Modal from './Modal';
 import AddTask from './AddTask';
 import mockTasks from './mockTasks';
 
-const TaskList = ({ tasks, handleStatusChange, handleDeleteTask, handleAddTask }) => {
+const TaskList = ({ tasks, user, handleStatusChange, handleDeleteTask, handleAddTask }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ const TaskList = ({ tasks, handleStatusChange, handleDeleteTask, handleAddTask }
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} handleAddTask={handleAddTask}>
-	<AddTask />
+	<AddTask userId={user._id} />
       </Modal>
     </div>
   );
