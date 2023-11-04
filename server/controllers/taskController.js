@@ -1,116 +1,93 @@
-const Task = require('../models/task');
+const User = require('../models/user');
 
-// Create a New Task
-const createTask = async (req, res) => {
+// Create a new task for a specific user
+exports.createTaskForUser = async (req, res) => {
   try {
-    const { title, description, dueDate } = req.body;
-    const task = new Task({
-      title,
-      description,
-      status: 'Not Started',
-      dueDate,
-    });
-    await task.save();
-    res.status(201).json({ message: 'Task created successfully', task });
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const newTask = req.body;
+    user.tasks.push(newTask);
+    await user.save();
+
+    res.status(201).json(newTask);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Error creating a task for the user' });
   }
 };
 
-
-// Get All Tasks
-const getAllTasks = async (req, res) => {
+// Get all tasks for a specific user
+exports.getTasksForUser = async (req, res) => {
+  const userId = req.params.userId;
   try {
-    const tasks = await Task.find();
-    res.status(200).json({ tasks });
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const tasks = user.tasks;
+    res.status(200).json(tasks);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Error fetching tasks for the user' });
   }
 };
 
-
-// Get a Single Task by ID
-const getTaskById = async (req, res) => {
+exports.updateTaskForUser = async (req, res) => {
   try {
-    const taskId = req.params.id;
-    const task = await Task.findById(taskId);
+    const userId = req.params.userId;
+    const taskId = req.params.taskId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const task = user.tasks.id(taskId);
+
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
-    res.status(200).json({ task });
+
+    // Update task properties
+    task.set(req.body);
+
+    await user.save();
+    res.status(200).json(task);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Error updating task for the user' });
   }
 };
 
-
-// Update a Task
-const updateTask = async (req, res) => {
+// taskController.js
+exports.deleteTaskForUser = async (req, res) => {
   try {
-    const taskId = req.params.id;
-    const { title, description, status, dueDate } = req.body;
-    const task = await Task.findByIdAndUpdate(
-      taskId,
-      {
-        title,
-        description,
-        status,
-        dueDate,
-      },
-      { new: true }
-    );
+    const userId = req.params.userId;
+    const taskId = req.params.taskId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const task = user.tasks.id(taskId);
+
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
-    res.status(200).json({ message: 'Task updated successfully', task });
+
+    // Remove the task
+    task.remove();
+
+    await user.save();
+    res.status(204).end(); // No content
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Error deleting task for the user' });
   }
 };
-
-
-// Delete a Task
-const deleteTask = async (req, res) => {
-  try {
-    const taskId = req.params.id;
-    const task = await Task.findByIdAndRemove(taskId);
-    if (!task) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-    res.status(200).json({ message: 'Task deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-
-// Get Tasks by Status
-const getTasksByStatus = async (req, res) => {
-  try {
-    const status = req.params.status;
-    if (!['Not Started', 'In Progress', 'Completed'].includes(status)) {
-      return res.status(400).json({ error: 'Invalid status provided' });
-    }
-
-    const tasks = await Task.find({ status });
-    res.status(200).json({ tasks });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-module.exports = {
-  createTask,
-  getAllTasks,
-  getTaskById,
-  updateTask,
-  deleteTask,
-  getTasksByStatus,
-};
-

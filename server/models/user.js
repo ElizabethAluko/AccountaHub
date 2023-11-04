@@ -1,4 +1,7 @@
+
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// const taskSchema = require('./task');
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -20,6 +23,10 @@ const userSchema = new mongoose.Schema({
   },
   role: [String],
   jobOrCourseTitle: String,
+  tasks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Task',
+  }],
   academicLevel: String,
   ageRange: String,
   availableTime: String,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddTask = () => {
+const AddTask = ({ userId }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('Not Started');
@@ -19,7 +19,7 @@ const AddTask = () => {
       alert('I am called again');
 
   try {
-    const response = await fetch('https://localhost:5000/tasks/task', {
+    const response = await fetch('https://localhost:5000/task/userId/newTask', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const AddTask = () => {
    if (response.ok) {
      // Task added successfully
      alert('Task added successfully');
-     // Rreset form fields
+     // Reset form fields
      setTitle('');
      setDescription('');
      setStatus('Not Started');

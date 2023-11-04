@@ -7,6 +7,7 @@ const Login = ({ onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+
   const openSuccessModal = () => {setSuccessModalOpen(true);};
   const closeSuccessModal = () => {setSuccessModalOpen(false);};
 
@@ -29,12 +30,14 @@ const Login = ({ onSuccess }) => {
       if (response.status === 200) {
       // Authentication successful
         const userData = await response.json();
-        auth.login(userData); // login function in the useAuth file
-
-	openSuccessModal();
-	alert(`Login Successfull, ${userData.user}!`);
-	navigate('/dashboard');
-	onSuccess();
+        auth.login(userData);
+        // onSuccess();
+	
+    	openSuccessModal();
+	// navigate('/dashboard');
+	setTimeout(() => {
+    	  navigate('/dashboard');
+  	}, 3000);
       } else {
         // Authentication failed
 	alert('Login Failed');
@@ -53,8 +56,11 @@ const Login = ({ onSuccess }) => {
 	{isSuccessModalOpen && (
 	  <Modal isOpen={isSuccessModalOpen} onClose={closeSuccessModal}>
 	    {/* Success component here */}
-	    <div>Login Successful!</div>
-	  </Modal>
+	  <div className="bg-white rounded-lg p-4 w-full sm:w-full lg:w-full h-full">
+      	    <h2 className="text-2xl font-semibold text-green-500 mb-2">Login Successful!</h2>
+            <div className="text-gray-600">You have successfully logged in.</div>
+          </div>  
+	</Modal>
 	  )}
 
       <h1 className="text-2xl font-bold text-center mb-4">Login</h1>

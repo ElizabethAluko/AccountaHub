@@ -56,7 +56,7 @@ function Home() {
 	
 	{/* Conditionally render the Signup form */}
 	{isSignupModalOpen && (
-	  <Modal isOpen={isSignupModalOpen} onClose={() => setSignupModalOpen(false)}>
+	  <Modal isOpen={isSignupModalOpen} onClose={closeSignupModal}>
            {/* SignupForm component here */}
            <Signup onSuccess={closeSignupModal} />
           </Modal>

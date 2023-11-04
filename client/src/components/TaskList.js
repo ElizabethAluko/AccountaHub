@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Task from './Task';
 import Modal from './Modal';
 import AddTask from './AddTask';
+import mockTasks from './mockTasks';
 
 const TaskList = ({ tasks, handleStatusChange, handleDeleteTask, handleAddTask }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -13,8 +14,7 @@ const TaskList = ({ tasks, handleStatusChange, handleDeleteTask, handleAddTask }
       </button>
 
       <div className="mt-4">
-        {tasks &&
-          tasks.map((task) => (
+        {mockTasks.map((task) => (
             <Task
               key={task._id}
               task={task}

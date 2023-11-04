@@ -65,12 +65,11 @@ exports.login = async (req, res) => {
     // If email and password are valid, generate a JWT token
     const usertoken = {
       _id: user._id,
-      role: user.role,
     };
 
    const token = jwt.sign(usertoken, process.env.JWT_SECRET, {expiresIn: '72h',});
 
-    res.status(200).json({ token, user: user.firstName });
+    res.status(200).json({ token, firstName: user.firstName, _id: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

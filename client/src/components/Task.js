@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Task = ({ task, handleStatusChange, handleDeleteTask }) => {
   const { title, description, status, dueDate } = task;
 

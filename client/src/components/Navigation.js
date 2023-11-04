@@ -1,13 +1,17 @@
 // client/src/components/Navigation.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// import { useAuth } from './useAuth';
+//import { useAuth } from './useAuth';
 
 function Navigation({ openLoginModal, user, logout }) {
   const location = useLocation();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
+//useEffect(() => {
+//	const userData = userData;
+//	setUser(userData);
+//}, []);
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -75,7 +79,7 @@ function Navigation({ openLoginModal, user, logout }) {
             className="flex items-center text-white focus:outline-none"
           >
           <div className="w-8 h-8 relative rounded-full bg-blue-500 flex items-center justify-center text-lg">
-            {user.user.charAt(0)}
+	    {user.firstName.charAt(0)}
           </div>
         </button>
         </div>
@@ -96,11 +100,11 @@ function Navigation({ openLoginModal, user, logout }) {
             <div className="px-4 py-2">
               <img
                 src='/avatar.png'
-                alt={user.user}
+                alt={user.firstName}
                 className="w-9 h-9 rounded-full mx-auto"
               />
               <h3 className="text-center text-lg font-semibold text-gray-900">
-                {user.user}
+                {user.fistName}
               </h3>
               {/* Add more user information here */}
             </div>
@@ -130,7 +134,7 @@ function Navigation({ openLoginModal, user, logout }) {
 	    <div>
 	    <hr />
             <img src={user.avatar} alt="User Avatar" className="avatar" />
-            <p className="block text-white py-2">{user.user}</p>
+            <p className="block text-white py-2">{user.firstName}</p>
             <button onClick={logout} className="text-white hover:underline">
             Logout
             </button>

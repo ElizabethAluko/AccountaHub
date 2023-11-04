@@ -17,18 +17,15 @@ import Navigation from '../components/Navigation';
 
 
 function Dashboard() {
-  const { user, logout }= useAuth();
-
-  // useEffect(() => {
-    // initializeAuth();
-  // }, []);
-
+  const { user, logout, initializeAuth }= useAuth();
   const navigate = useNavigate();
-
-
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
+
+  //useEffect(() => {
+    //initializeAuth();
+  //}, [initializeAuth]);
 
   // useEffect(() => {  
     if (!user) {
@@ -55,7 +52,7 @@ function Dashboard() {
       {/* Sidebar */}
       <div className="flex">
         {/* Sidebar component with user and logout handling */}
-        <Sidebar user={user.user}>
+        <Sidebar user={user}>
 
         {/* Main content */}
         <div className="flex-grow p-4">
@@ -108,16 +105,10 @@ function Dashboard() {
 
 <br /><br /><br />
 
-<p>Welcome, {user.user}. We are here to help you stay accountable and achieve your goals.</p>
+<p>Welcome, {user.firstName}.Your id is {user._id} We are here to help you stay accountable and achieve your goals.</p>
 
 <br /><br /><br />
-     <TaskList/>
-      {/* Conditionally render the AddTask form */}
-      {isTaskModalOpen && (                                         <Modal isOpen={isTaskModalOpen} onClose={() => setTaskModalOpen(false)}>
-           {/* TaskForm component here */}
-           <AddTask />
-	</Modal>
-      )}
+     <TaskList />
 <br /><br /><br />
 
       <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
