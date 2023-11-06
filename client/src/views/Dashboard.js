@@ -82,58 +82,25 @@ function Dashboard() {
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-          <h1 className="text-4xl font-bold mb-4">AccountaHub</h1>
-          <p className="text-lg">Empower! Inspire! Succeed!</p>
-        </div>
+        <div className="absolute top-0 left-0 h-full w-full bg-black opacity-70"></div>
+        <div className="absolute top-1/2 left-1/2 transorm -translate-x-1/2 -translate-y-1/2 text-center">
+        <h1 className="text-4xl text-white font-bold mb-2">Together...</h1>
+        <p className="text-md text-yellow-400">We can Reach the Goal!</p>
+	</div>
       </div>
 
-     <div className="w-full h-32 bg-gradient-to-b from-blue-400 to-purple-400 rounded-b-3xl shadow-lg">
-      {/* Content goes here */}
-    </div><br /><br />
+   <div class="w-60 h-20 bg-blue-600 rounded-r-full text-white ">
+     <h1 className="text-yellow-500 text-xl pl-10 pt-2">Dashboard</h1>
+     <p className="pl-6">Welcome {user.firstName}!</p>
+  </div>
 
+     <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4"> Get Motivated </h1>
+       <Quotes /><br />
 
-      {/* Conditionally render the login form */}
-	{isLoginModalOpen && (
-          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
-	  {/* LoginForm component here */}
-	    <Login />
-	    </Modal>
-	 )}
-	
-	{/* Conditionally render the Signup form */}
-	{isSignupModalOpen && (
-	  <Modal isOpen={isSignupModalOpen} onClose={closeSignupModal}>
-           {/* SignupForm component here */}
-           <Signup />
-          </Modal>
-	)}
-
-      <div><h1>AccountaHub</h1>
-        <p>Empower. Inspire. Succeed. Join us for mentorship, goal-setting, and community support, where every journey leads
- to greatness.</p></div>
-
-<br /><br /><br />
-
-<p>Welcome, {user.firstName}. We are here to help you stay accountable and achieve your goals.</p>
-
-<br /><br /><br />
+     <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4">Keep Up</h1>
      <TaskList socket={socket} user={user} />
 <br /><br /><br />
 
-      <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-  <div class="md:flex">
-    <div class="md:shrink-0">
-      <img class="h-48 w-full object-cover md:h-full md:w-48" src={tree} alt="Modern building architecture" />
-    </div>
-    <div class="p-8">
-      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
-      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible accommodation for your team</a>
-      <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
-    </div>
-  </div>
-</div>
-<br /><br /><br />
 
     <FeatureBox
         image="/images/tree.jpg"
@@ -157,12 +124,7 @@ function Dashboard() {
         swapPositionsOnLargeScreen={true}
       /><br /><br /><br />
 
-      <FeatureBox                                                     image="/images/flower.png"                                      title="Company retreats 3"                                    description="Do not go alone."
-	  linkHref="#"
-	  swapPositionsOnLargeScreen={true}                           /><br /><br /><br />
-
       <Team /> <br /><br />
-      <Quotes /><br /><br />
 	
     </div>
   );

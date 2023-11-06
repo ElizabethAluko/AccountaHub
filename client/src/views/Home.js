@@ -38,8 +38,8 @@ function Home() {
 	</video>
 	<div className="absolute top-0 left-0 h-full w-full bg-black opacity-70"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-        <h1 className="text-4xl text-white font-bold mb-4">AccountaHub</h1>
-        <p className="text-md text-yellow-400">Empower! Inspire! Succeed!</p>
+        <h1 className="text-4xl text-white font-bold mb-2">Together...</h1>
+        <p className="text-md text-yellow-400">We can Reach the Goal!</p>
           <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-blue-700" onClick={openSignupModal}>
             Start for Free
           </button>
@@ -63,7 +63,7 @@ function Home() {
 	)}
 <br />
 	
-<h1 className="font-bold text-2xl text-center mt-8 mb-5 mx-4"> Be Fulfilled</h1>
+<h1 className="font-bold text-2xl text-center mt-8 mb-5 mx-4"> Become what you will be happy you become.</h1>
 
 
     <FeatureBox

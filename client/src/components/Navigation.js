@@ -29,7 +29,7 @@ function Navigation({ openLoginModal, user, logout }) {
 	  />
 	  </a>
         </div>
-
+	<h1 className="text-white font-bold text-center">AccountaHub</h1>
         {/* Hamburger Menu Button (visible on small screens) */}
         <div className="md:hidden">
           <button
@@ -64,22 +64,19 @@ function Navigation({ openLoginModal, user, logout }) {
 
         {/* Navigation Links (visible on larger screens) */}
         <div className="hidden md:flex space-x-6">
+	  <Link to="/" className="text-white hover:underline">Home</Link>
           <Link to="/" className="text-white hover:underline">Services</Link>
           <a href="/About" className="text-white hover:underline">About</a>
 
 	  {location.pathname === '/dashboard' && user ? (
             <div className="flex items-center space-x-4">
-            <img src='/avatar.png' alt="User Avatar" className="w-8 h-8" />
-            <button onClick={logout} className="text-white hover:underline">
-            Logout
-            </button>
           <button
             type="button"
             onClick={toggleDropdown}
             className="flex items-center text-white focus:outline-none"
           >
           <div className="w-8 h-8 relative rounded-full bg-blue-500 flex items-center justify-center text-lg">
-	    {user.firstName.charAt(0)}
+	    {user.firstName ? <span>{user.firstName.charAt(0)}</span> : null}
           </div>
         </button>
         </div>
@@ -88,7 +85,6 @@ function Navigation({ openLoginModal, user, logout }) {
           Login
         </button>
       )}
-
         </div>
       </div>
 
@@ -109,9 +105,11 @@ function Navigation({ openLoginModal, user, logout }) {
               {/* Add more user information here */}
             </div>
             <div className="border-t border-gray-200">
+	     <div className="group flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</div>
+	     <div className="group flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</div>
               <button
                 type="button"
-                onClick={toggleDropdown}
+                onClick={logout}
                 className="group flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Logout
@@ -134,10 +132,13 @@ function Navigation({ openLoginModal, user, logout }) {
 	  {location.pathname === '/dashboard' && user ? (
 	    <div>
 	    <hr />
-            <img src={user.avatar} alt="User Avatar" className="avatar" />
             <p className="block text-white py-2">{user.firstName}</p>
+	    <button onClick={logout} className="text-white pb-4 hover:underline">
+	      Profile
+            </button>
+	    <br />
             <button onClick={logout} className="text-white hover:underline">
-            Logout
+              Logout
             </button>
 	    </div>
       ) : (
