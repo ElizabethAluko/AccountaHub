@@ -124,10 +124,11 @@ function Navigation({ openLoginModal, user, logout }) {
       {/* Responsive Mobile Menu (visible on small screens) */}
       {isMenuOpen && (
         <div className="md:hidden mt-2">
-          <Link to="/" className="block text-white py-2">Become a Mentor</Link>
-	  <Link to="/dashboard" className="block text-white py-2">Find a Mentor</Link>
-	  <Link to="/dashboard" className="block text-white py-2">Mutual Support</Link>
-	  <Link to="/dashboard" className="block text-white py-2">Self Help</Link>
+	 <Link to="/" className="block text-white py-2">Home</Link>
+          <Link to="/Mentor" className="block text-white py-2">Mentor</Link>
+	  <Link to="/Mentored" className="block text-white py-2">Find a Mentor</Link>
+	  <Link to="/MutualSupport" className="block text-white py-2">Mutual Support</Link>
+	  <Link to="/SelfHelp" className="block text-white py-2">Self Help</Link>
 	  <Link to="/About" className="block text-white py-2">About Us</Link>
 
 	  {location.pathname === '/dashboard' && user ? (

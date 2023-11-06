@@ -28,7 +28,7 @@ const Quotes = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentQuote((prevQuote) => (prevQuote + 1) % quotes.length);
-    }, 5000); // Change quote every 5 seconds
+    }, 20000); // Change quote every 5 seconds
 
     return () => clearInterval(interval);
   }, [quotes]);
@@ -42,17 +42,17 @@ const Quotes = () => {
         selectedItem={currentQuote}
         autoPlay={true}
         interval={5000}
-	className="bg-pink-500"
+	className="bg-yellow-200 max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl"
       >
         {quotes.map((quote, index) => (
           <div key={index} className="rounded-lg p-4 shadow-lg md:max-w-lg mx-auto md:w-3/4 sm:w-full">
-            <div className="bg-blue-500 text-white p-4 rounded-lg">
-              <p className="text-2xl font-semibold">
+              <div className="bg-blue-500 text-white p-4 rounded-lg">
+		<p className="text-2xl font-semibold">
                 {quote.text}
               </p>
               <p className="text-lg mt-4">- {quote.author}</p>
-            </div>
           </div>
+	</div>
         ))}
       </Carousel>
     </div>

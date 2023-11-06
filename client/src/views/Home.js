@@ -61,50 +61,44 @@ function Home() {
            <Signup onSuccess={closeSignupModal} />
           </Modal>
 	)}
-
-	<div className="bg-gradient-to-r from-blue-400 to-purple-500 py-8 text-white text-center">
-      <h1 className="text-4xl font-bold mb-4">
-        ThriveTogether Hub: <span className="text-yellow-400">Mentor, Be Mentored,</span>
-      </h1>
-      <p className="text-2xl">Support, Empower</p>
-    </div>
-
-	<br />
-        <p>Join us for mentorship, goal-setting, and community support, where every journey leads
- to greatness.</p>
-
 <br />
+	
+<h1 className="font-bold text-2xl text-center mt-8 mb-5 mx-4"> Be Fulfilled</h1>
 
-<p> Stay accountable and achieve your goals.</p>
-
-<br /><br /><br />
 
     <FeatureBox
         image="/images/success.png"
         title="Mentorship"
         description="Remember those who guided you on your path? Now is your chance to pay it forward. By becoming a mentor, you continue a chain of support that uplifts individuals and communities."
-        linkHref="#" // Link 1
+        linkHref="/Mentor" // Link 1
         swapPositionsOnLargeScreen={true}
       /><br /><br /><br />
     <FeatureBox
         image="/images/men.jpg"
         title="Mutual Suport"
         description="You're never alone on this journey. Connect with like-minded individuals who understand your struggles and aspirations. Together, we foster a community built on trust and support."
-        linkHref="#" // Link 2
+        linkHref="/MutualSupport" // Link 2
         swapPositionsOnLargeScreen={false}
       /><br /><br /><br />
     <FeatureBox
         image="/images/office.png"
         title="Self Help"
         description="Harness the power within you. We equip you with the knowledge and tools needed for self-improvement, so you can take charge of your life and thrive."
-        linkHref="#" // Link 3
+        linkHref="SelfHelp" // Link 3
         swapPositionsOnLargeScreen={true}
       /><br /><br /><br />
 
+    <div className="bg-gradient-to-r from-blue-400 to-purple-500 py-8 text-center text-white max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl ">
+	<h1 className="text-4xl font-bold mb-4">
+	  Thrive Together: <span className="text-yellow-400">Mentor! Be Mentored!</span>
+      </h1>
+      <p className="text-2xl">Support and Empower!</p>
+   </div>
+<br /><br /><br />
       <FeatureBox
 	  image="/images/flower.png"
-	  title="Company retreats 3"
-	  description="Do not go alone."
+	  title="Join us For Free!"
+	  description="Join us for mentorship, goal-setting, and community support, where every journey leads to greatness. Stay accountable and achieve your goals.You will be happy you do."
 	  linkHref="#"
 	  swapPositionsOnLargeScreen={true}
       />

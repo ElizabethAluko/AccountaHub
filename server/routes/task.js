@@ -4,11 +4,11 @@ const router = express.Router();
 const { requireAuth } = require('../middlewares/authMiddleware');
 const taskController = require('../controllers/taskController');
 
-// Route to get all tasks
+// Route to create a new task
 router.post('/:userId/tasks', taskController.createTaskForUser);
 
-// Route to create a new task
-router.get('/:userId/tasks', requireAuth, taskController.getTasksForUser);
+// Route to get all tasks
+router.get('/:userId/tasks', taskController.getTasksForUser);
 
 // Route to get a task by ID
 //router.get('/tasks/:taskId', requireAuth, taskController.getTaskById);

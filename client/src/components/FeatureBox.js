@@ -17,7 +17,7 @@ const FeatureBox = ({ image, title, description, linkHref, swapPositionsOnLargeS
 	<p className="mt-2 text-slate-500">{description}</p>
         <a
           href={linkHref}
-          className="block mt-1 text-sm leading-tight font-small text-black hover:underline"
+          className="block mt-1 text-sm leading-tight font-small text-yellow-400 hover:underline"
         >
           Learn More
         </a>

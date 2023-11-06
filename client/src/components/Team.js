@@ -19,7 +19,7 @@ const Team = () => {
   return (
     <div className="p-8 bg-gray-100">
       <div className="max-w-screen-xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-pink-500 mb-8">Our Team</h2>
+        <h2 className="text-3xl font-bold text-blue-500 mb-8">Our Team</h2>
         <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6">
           {teamMembers.map((member) => (
             <div

@@ -1,44 +1,65 @@
-// client/src/views/About.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Navigation from '../components/Navigation';
+import { useAuth } from '../components/useAuth';
+import Modal from '../components/Modal';
+import Login from '../components/Login';
 
-function About() {
+const VisionMissionValues = () => {
+  const { user, logout, initializeAuth }= useAuth();
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+
+  const openLoginModal = () => {setLoginModalOpen(true);};
+
   return (
-    <div className="text-center">
-      <h1 className="text-3xl font-bold">About Us</h1>
-       <hr /><br />
-      <h2 className="text-2xl">Vision Statement</h2>
-	  <p className="text-lg">Empowering a generation of leaders by fostering a world where mentorship, guidance, and shared accountability are the cornerstones of personal and professional growth. Together, we inspire and shape brighter futures.</p>
+    <div>
+	{/* Navigation Bar */}                               <Navigation openLoginModal={openLoginModal} user={user} logout={logout} />
 
-      <h2 className="text-2xl">Mission Statement</h2>
-	  <p>Our mission is to create a dynamic platform where experienced mentors, eager mentees, and individuals committed to personal growth converge. We facilitate meaningful connections, provide guidance, and cultivate a culture of mutual support. Through mentorship, goal-sharing, and unwavering encouragement, we aim to unlock the full potential of every member of our community.</p>
+	{/* Conditionally render the login form */}
+        {isLoginModalOpen && (
+          <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
+          {/* LoginForm component here */}
+            <Login />
+	  </Modal>
+	)}
 
-      <h2 className="text-2xl font-bold">Core Values</h2>
-	  <h3>Empowerment</h3>
-	  <p>We believe in the transformative power of mentorship and self-accountability to empower individuals to achieve their dreams.</p>
+	<div className="bg-gray-800 py-8 text-white text-center">
+         <h1 className="text-4xl font-bold mb-4">About Us</h1>
+         <p className="text-yellow-400">Support! Empower!</p>
+       </div>
+	
+    <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="p-4 border border-gray-200 rounded-lg bg-white">
+          <h2 className="text-2xl font-bold text-blue-600 mb-4">Vision Statement</h2>
+          <p className="text-gray-700">
+            Empowering a generation of leaders by fostering a world where mentorship, guidance, and shared accountability are the cornerstones of personal and professional growth. Together, we inspire and shape brighter futures.
+          </p>
+        </div>
+        <div className="p-4 border border-gray-200 rounded-lg bg-white">
+          <h2 className="text-2xl font-bold text-blue-600 mb-4">Mission Statement</h2>
+          <p className="text-gray-700">
+            Our mission is to create a dynamic platform where experienced mentors, eager mentees, and individuals committed to personal growth converge. We facilitate meaningful connections, provide guidance, and cultivate a culture of mutual support. Through mentorship, goal-sharing, and unwavering encouragement, we aim to unlock the full potential of every member of our community.
+          </p>
+        </div>
 
-	  <h3>Collaboration</h3>
-	  <p>We foster a collaborative environment where mentors and mentees come together to exchange knowledge, experiences, and inspiration.</p>
-
-	  <h3>Support</h3>
-	  <p>We are committed to offering unwavering support and encouragement to our community members on their journeys toward success.</p>
-
-	  <h3>Growth</h3>
-	  <p>We believe in continuous personal and professional growth as the key to realizing one's full potential.</p>
-
-	  <h3>Accountability</h3>
-	  <p>We encourage members to set and monitor their goals, promoting self-accountability and shared accountability within our community.</p>
-
-	  <h3>Integrity</h3>
-	  <p>We uphold the highest standards of integrity, honesty, and respect in all interactions within our community.</p>
-
-	  <h3>Innovation</h3>
-	  <p>We continuously seek innovative ways to enhance the mentorship and goal-setting experience for our users.</p>
-
-	  <h3>Diversity and Inclusion</h3>
-	  <p>We celebrate diversity and embrace individuals from all backgrounds, experiences, and career paths.</p>
-	  
+      <div className="p-4 border border-gray-200 rounded-lg bg-white">
+        <h2 className="text-2xl font-bold text-blue-600 mb-4">Core Values</h2>
+        <ul className="list-disc ml-6 text-gray-700">
+          <li><strong>Empowerment:</strong> We believe in the transformative power of mentorship and self-accountability to empower individuals to achieve their dreams.</li>
+          <li><strong>Collaboration:</strong> We foster a collaborative environment where mentors and mentees come together to exchange knowledge, experiences, and inspiration.</li>
+          <li><strong>Support:</strong> We are committed to offering unwavering support and encouragement to our community members on their journeys toward success.</li>
+          <li><strong>Growth:</strong> We believe in continuous personal and professional growth as the key to realizing one's full potential.</li>
+          <li><strong>Accountability:</strong> We encourage members to set and monitor their goals, promoting self-accountability and shared accountability within our community.</li>
+          <li><strong>Integrity:</strong> We uphold the highest standards of integrity, honesty, and respect in all interactions within our community.</li>
+          <li><strong>Innovation:</strong> We continuously seek innovative ways to enhance the mentorship and goal-setting experience for our users.</li>
+          <li><strong>Diversity and Inclusion:</strong> We celebrate diversity and embrace individuals from all backgrounds, experiences, and career paths.</li>
+        </ul>
+      </div>
     </div>
+   </div>
+  </div>
   );
-}
+};
 
-export default About;
+export default VisionMissionValues;

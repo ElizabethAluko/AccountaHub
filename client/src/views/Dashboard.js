@@ -14,6 +14,8 @@ import AddTask from '../components/AddTask';
 import TaskList from '../components/TaskList';
 import { useAuth } from '../components/useAuth';
 import Navigation from '../components/Navigation';
+import io from 'socket.io-client';
+
 
 
 function Dashboard() {
@@ -22,6 +24,8 @@ function Dashboard() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
+  
+  const socket = io('http://localhost:5000/');
 
   //useEffect(() => {
     //initializeAuth();
@@ -62,8 +66,9 @@ function Dashboard() {
             <Route path="/tasks">Tasks Page</Route>
             <Route path="/chat">Chat Page</Route>
             <Route path="/settings">Settings Page</Route>
-	</Routes>
-        </div></Sidebar>
+	  </Routes>
+        </div>
+	</Sidebar>
       </div>
 
 
@@ -83,6 +88,11 @@ function Dashboard() {
         </div>
       </div>
 
+     <div className="w-full h-32 bg-gradient-to-b from-blue-400 to-purple-400 rounded-b-3xl shadow-lg">
+      {/* Content goes here */}
+    </div><br /><br />
+
+
       {/* Conditionally render the login form */}
 	{isLoginModalOpen && (
           <Modal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)}>
@@ -99,16 +109,16 @@ function Dashboard() {
           </Modal>
 	)}
 
-      <div Style="background-color: grey"><h1>AccountaHub</h1>
+      <div><h1>AccountaHub</h1>
         <p>Empower. Inspire. Succeed. Join us for mentorship, goal-setting, and community support, where every journey leads
  to greatness.</p></div>
 
 <br /><br /><br />
 
-<p>Welcome, {user.firstName}.Your id is {user._id} We are here to help you stay accountable and achieve your goals.</p>
+<p>Welcome, {user.firstName}. We are here to help you stay accountable and achieve your goals.</p>
 
 <br /><br /><br />
-     <TaskList user={user}/>
+     <TaskList socket={socket} user={user} />
 <br /><br /><br />
 
       <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">

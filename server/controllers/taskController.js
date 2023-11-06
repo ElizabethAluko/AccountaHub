@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Task = require('../models/task');
-
+const { io } = require('../server');
+// const io = server.io;
 
 // Create a new task for a specific user
 exports.createTaskForUser = async (req, res) => {
@@ -24,9 +25,12 @@ exports.createTaskForUser = async (req, res) => {
     // Save the user with the updated tasks array
     await user.save();
 
+    // Emit a 'taskUpdate' event to notify clients about the task creation
+    // io.emit('taskUpdate', { taskId: newTask._id, action: 'create', newTask: newTask });
+
     res.status(201).json(newTask);
   } catch (error) {
-    res.status(500).json({ error: 'Error creating a task for the user' });
+    res.status(500).json({ error: `${error}: Error creating a task for the user` });
   }
 };
 
@@ -40,8 +44,13 @@ exports.getTasksForUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const tasks = user.tasks;
-    res.status(200).json(tasks);
+    // Populate the tasks array with actual task data
+    await user.populate('tasks').execPopulate();
+
+    // Extract the populated tasks from the user
+    const userTasks = user.tasks;
+
+    res.status(200).json(userTasks);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching tasks for the user' });
   }
@@ -68,6 +77,10 @@ exports.updateTaskForUser = async (req, res) => {
     task.set(req.body);
 
     await user.save();
+
+    // For real life client side update
+    io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
+
     res.status(200).json(task);
   } catch (error) {
     res.status(500).json({ error: 'Error updating task for the user' });
@@ -96,6 +109,9 @@ exports.deleteTaskForUser = async (req, res) => {
     task.remove();
 
     await user.save();
+    // Emit a 'taskUpdate' event to notify clients about the task deletion
+    io.emit('taskUpdate', { action: 'delete', taskId: newTask._id });
+
     res.status(204).end(); // No content
   } catch (error) {
     res.status(500).json({ error: 'Error deleting task for the user' });
