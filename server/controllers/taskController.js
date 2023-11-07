@@ -45,14 +45,14 @@ exports.getTasksForUser = async (req, res) => {
     }
 
     // Populate the tasks array with actual task data
-    await user.populate('tasks').execPopulate();
+    await user.populate('tasks');
 
     // Extract the populated tasks from the user
     const userTasks = user.tasks;
 
     res.status(200).json(userTasks);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching tasks for the user' });
+    res.status(500).json({ error: `Error fetching tasks for the user: ${error}` });
   }
 };
 
@@ -99,21 +99,21 @@ exports.deleteTaskForUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const task = user.tasks.id(taskId);
+    await Task.findByIdAndDelete(taskId);
+    await User.findByIdAndUpdate(userId, {
+      $pull: { tasks: taskId },
+    });
 
-    if (!task) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-
-    // Remove the task
-    task.remove();
+    // if (!task) {
+      // return res.status(404).json({ error: 'Task not found' });
+    // }
 
     await user.save();
     // Emit a 'taskUpdate' event to notify clients about the task deletion
-    io.emit('taskUpdate', { action: 'delete', taskId: newTask._id });
+    // io.emit('taskUpdate', { action: 'delete', taskId: newTask._id });
 
     res.status(204).end(); // No content
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting task for the user' });
+    return res.status(500).json({ error: `Error deleting task for the user: ${error}` });
   }
 };

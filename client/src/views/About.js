@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import { useAuth } from '../components/useAuth';
 import Modal from '../components/Modal';
 import Login from '../components/Login';
 
 const VisionMissionValues = () => {
-  const { user, logout, initializeAuth }= useAuth();
+  const { user, logout }= useAuth();
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  // const [isSignupModalOpen, setSignupModalOpen] = useState(false);
 
   const openLoginModal = () => {setLoginModalOpen(true);};
 

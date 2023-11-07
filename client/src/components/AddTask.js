@@ -16,7 +16,6 @@ const AddTask = ({ userId }) => {
       status,
       dueDate,
     };
-      alert(`I am called again ${userId}`);
 
   try {
     const response = await fetch(`http://localhost:5000/task/${userId}/tasks`, {
@@ -26,7 +25,6 @@ const AddTask = ({ userId }) => {
       },
       body: JSON.stringify(newTask),
     });
-    alert('I tried to fetch');
    if (response.ok) {
      // Task added successfully
      alert('Task added successfully');

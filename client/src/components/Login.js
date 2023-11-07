@@ -37,7 +37,7 @@ const Login = ({ onSuccess }) => {
 	// navigate('/dashboard');
 	setTimeout(() => {
     	  navigate('/dashboard');
-  	}, 3000);
+  	}, 2000);
       } else {
         // Authentication failed
 	alert('Login Failed');

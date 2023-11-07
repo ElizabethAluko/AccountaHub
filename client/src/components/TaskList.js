@@ -5,7 +5,7 @@ import AddTask from './AddTask';
 import mockTasks from './mockTasks';
 import io from 'socket.io-client';
 
-const TaskList = ({ user, socket, handleStatusChange, handleDeleteTask, handleAddTask, handleEditTask }) => {
+const TaskList = ({ user, socket, handleAddTask }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -27,7 +27,26 @@ const TaskList = ({ user, socket, handleStatusChange, handleDeleteTask, handleAd
       console.error('Error fetching tasks:', error);
     }
   };
-  
+ 
+  const handleStatusChange = async (taskId) => {
+    try {
+      // Task update request.
+      const userId = user._id;
+      const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
+        method: 'UPDATE',
+	});
+      alert('I reach here')
+      if (response.ok) {
+	alert('Task is updated Successfully!');
+      } else {
+	  alert('Task failed to update');
+	}
+     } catch (error) {
+	  alert('Error updating task');
+	}
+    };
+
+
   useEffect(() => {
     // Fetch initial tasks on component mount
     fetchInitialTasks();
@@ -62,33 +81,18 @@ const TaskList = ({ user, socket, handleStatusChange, handleDeleteTask, handleAd
 
   return (
    <div className="p-4 bg-blue-200 rounded-lg shadow-lg">
-    <h2>Task List</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            {/* Render each task item here */}
-            <div>
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-              <button onClick={() => handleEditTask(task)}>Edit</button>
-              <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      {/* Mock Tasks */}
+      {/* Tasks */}
       <button onClick={() => setModalOpen(true)} className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
         Add Task
       </button>
-
+	{tasks._id}
       <div className="mt-4">
-        {mockTasks.map((task) => (
+        {tasks.map((task) => (
             <Task
+	      userId={user._id}
               key={task._id}
               task={task}
               handleStatusChange={handleStatusChange}
-              handleDeleteTask={handleDeleteTask}
             />
           ))}
       </div>

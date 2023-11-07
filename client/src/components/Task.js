@@ -1,8 +1,29 @@
 import React from 'react';
 
 
-const Task = ({ task, handleStatusChange, handleDeleteTask }) => {
-  const { title, description, status, dueDate } = task;
+const Task = ({ key, userId, task, handleStatusChange }) => {
+  const { _id, title, description, status, dueDate } = task;
+
+  const handleDeleteTask = async (taskId) => {
+    try {
+      // Send API Delete Request
+      alert(` I enter try after user: ${taskId}`);
+      const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
+	method: 'DELETE',
+      });
+      alert('I fetched');
+      if (response.ok) {
+        alert('Task is deleted Successfully');
+      } else {
+	const data = await response.json()
+
+          alert(`Task failed to delete: ${data.error}`);
+        }
+
+    } catch (error) {
+	alert('Error deleting task');
+    }
+  };
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-lg mb-4">
@@ -12,10 +33,10 @@ const Task = ({ task, handleStatusChange, handleDeleteTask }) => {
       <p className="text-gray-500">{dueDate}</p>
       <div className="mt-4">
         <button onClick={() => handleStatusChange(task)} className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600">
-          Mark as Completed
+          Edit
         </button>
-        <button onClick={() => handleDeleteTask(task)} className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 ml-2">
-          Delete Task
+        <button onClick={() => handleDeleteTask(_id)} className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 ml-2">
+          Delete
         </button>
       </div>
     </div>

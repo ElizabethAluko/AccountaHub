@@ -97,34 +97,9 @@ function Dashboard() {
      <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4"> Get Motivated </h1>
        <Quotes /><br />
 
-     <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4">Keep Up</h1>
+     <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4">Task List</h1>
      <TaskList socket={socket} user={user} />
 <br /><br /><br />
-
-
-    <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 1"
-        description="Your custom description for box 1."
-        linkHref="#" // Link 1
-        swapPositionsOnLargeScreen={true}
-      /><br /><br /><br />
-      <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 2"
-        description="Your custom description for box 2."
-        linkHref="#" // Link 2
-        swapPositionsOnLargeScreen={false}
-      /><br /><br /><br />
-      <FeatureBox
-        image="/images/tree.jpg"
-        title="Company retreats 3"
-        description="Your custom description for box 3."
-        linkHref="#" // Link 3
-        swapPositionsOnLargeScreen={true}
-      /><br /><br /><br />
-
-      <Team /> <br /><br />
 	
     </div>
   );

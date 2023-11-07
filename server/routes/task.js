@@ -17,7 +17,7 @@ router.get('/:userId/tasks', taskController.getTasksForUser);
 router.put('/:userId/tasks/:taskId', requireAuth, taskController.updateTaskForUser);
 
 // Route to delete a task by ID
-router.delete('/:userId/tasks/:taskId', requireAuth, taskController.deleteTaskForUser);
+router.delete('/:userId/tasks/:taskId', taskController.deleteTaskForUser);
 
 // Route to get tasks by status
 // router.get('/tasks/status/:status', requireAuth, taskController.getTasksByStatus);
