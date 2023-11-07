@@ -60,6 +60,7 @@ exports.updateTaskForUser = async (req, res) => {
   try {
     const userId = req.params.userId;
     const taskId = req.params.taskId;
+    const updatedData = req.body;
 
     const user = await User.findById(userId);
 
@@ -67,21 +68,27 @@ exports.updateTaskForUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const task = user.tasks.id(taskId);
 
-    if (!task) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
+    // Find and update the task in the Task collection
+    const updatedTask = await Task.findByIdAndUpdate(taskId, updatedData, { new: true });
+
+    // Update user's task references if needed
+    //if (updatedData.status) {
+      // Example: If you update the task status, update the user's tasks array
+      //await User.findByIdAndUpdate(userId, {
+        //$pull: { tasks: taskId },
+      //});
+    //}
 
     // Update task properties
-    task.set(req.body);
+    // task.set(req.body);
 
     await user.save();
 
     // For real life client side update
-    io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
+    // io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
 
-    res.status(200).json(task);
+    res.status(200).json(updatedTask);
   } catch (error) {
     res.status(500).json({ error: 'Error updating task for the user' });
   }

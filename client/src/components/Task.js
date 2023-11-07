@@ -7,11 +7,9 @@ const Task = ({ key, userId, task, handleStatusChange }) => {
   const handleDeleteTask = async (taskId) => {
     try {
       // Send API Delete Request
-      alert(` I enter try after user: ${taskId}`);
       const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
 	method: 'DELETE',
       });
-      alert('I fetched');
       if (response.ok) {
         alert('Task is deleted Successfully');
       } else {
